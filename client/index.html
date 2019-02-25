@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="content"></div>
+
+    <script>
+
+        $.ajax({
+            url: 'http://localhost:8888/student',
+            method: 'GET'
+        }).done(function (d) {
+            console.log(d);
+            view(d);
+            //$('#content').html(JSON.stringify(d));
+        });
+
+        function view(array) {
+            for (let i = 0; i < array.length; i++) {
+                temp(array[i]);
+            };
+        };
+
+        function temp(obj) {
+            var template = `<div>
+                        <div>
+                            student id: {{student_id}}
+                        </div>
+                        <div>
+                            student name: {{student_name}}
+                        </div>
+                     </div>`
+            template = template.replace("{{student_id}}", obj.student_id);
+            template = template.replace("{{student_name}}", obj.student_name);
+            $('#content').append(template);
+        }
+    </script>
+
+
+</body>
+
+</html>
